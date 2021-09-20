@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  telegraf:
+    image: telegraf
+    configs:
+    - source: telegraf-conf
+      target: /etc/telegraf/telegraf.conf
+    ports:
+    - 8186:8186
+  influxdb:
+    image: influxdb:2.0.8
+    ports:
+      - 8086:8086
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=user
+      - DOCKER_INFLUXDB_INIT_PASSWORD=password
+      - DOCKER_INFLUXDB_INIT_ORG=FHTW
+      - DOCKER_INFLUXDB_INIT_BUCKET=Data
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=EKOBZJQJ7m-CTLai4-otjUADp-trYaBgEp5gq62KyHW8LXMSnGKZIVFIxLYG6czs_F2FjIMzdBQjDqHy23I-jQ==
+
+  chronograf:
+    image: chronograf
+    ports:
+    - 8888:8888
+    command: ["chronograf", "--influxdb-url=http://influxdb:8086"]
+  kapacitor:
+    image: kapacitor
+    environment:
+    - KAPACITOR_INFLUXDB_0_URLS_0=http://influxdb:8086
+  jupiter-hub:
+    build:
+      context: ./jupiterhub/
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./notebooks:/home/student/notebooks
+    ports:
+      - 8000:8888
+    command: jupyter lab --ip='*' --no-browser --NotebookApp.token='' --NotebookApp.password=''
+#    configs:
+#      - source: jupyterhub-conf
+#        target: /etc/telegraf/telegraf.conf
+configs:
+  telegraf-conf:
+    file: ./conf/telegraf.conf
