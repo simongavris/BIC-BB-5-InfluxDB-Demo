@@ -21,13 +21,13 @@ To stop the containers, run:
 
 	docker-compose stop
 
-And to Remove all states (empty database, remove all configs, ..) run:
+And to remove all states (empty database, remove all configs, ..) run:
 
 	docker-compose down
 
 **This will remove everything except the notebooks**
 
-## Accesing the servies:
+## Accessing the servies:
 
 * JupyterHub: http://localhost:8000
 * Chronograph: http://localhost:8889
@@ -39,4 +39,4 @@ And to Remove all states (empty database, remove all configs, ..) run:
 
 
 
-# **THIS IS NOT A SECURE SETUP, DON'T USE IN SECURE ENVIRONMENT**
+# **THIS IS NOT A SECURE SETUP, DON'T USE IN A SECURE ENVIRONMENT**
