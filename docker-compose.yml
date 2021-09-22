@@ -22,7 +22,7 @@ services:
     environment:
     - KAPACITOR_INFLUXDB_0_URLS_0=http://influxdb:8086
     
-  jupiter-hub:
+  jupyer-hub:
     build:
       context: ./jupiterhub/
       dockerfile: ./Dockerfile
